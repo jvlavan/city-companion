@@ -212,15 +212,13 @@ export default function PricingPage() {
                       {data.description}
                     </span>
                     <br />
-                    <button
-                      onClick={() => {
-                        const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${data.geometry.location.lat},${data.geometry.location.lng}`;
-                        window.open(googleMapsUrl, "_blank");
-                      }}
+                    <a
                       className="mt-3 text-white bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                      href={`https://www.google.com/maps/search/?api=1&query=${data.geometry.location.lat},${data.geometry.location.lng}`}
+                      target="_blank"
                     >
                       View on Maps
-                    </button>
+                    </a>
                   </div>
                 </div>
               ))}
