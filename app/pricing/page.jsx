@@ -1,9 +1,8 @@
 "use client";
+import dynamic from "next/dynamic";
 import { useGeolocated } from "react-geolocated";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
-import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import "@mantine/core/styles.css";
 import {
@@ -14,36 +13,49 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import classes from "./StatsRingCard.module.css";
+import L from "leaflet";
+// Dynamically import Leaflet components with no SSR
+const MapContainer = dynamic(
+  () => import("react-leaflet").then((mod) => mod.MapContainer),
+  { ssr: false }
+);
+const TileLayer = dynamic(
+  () => import("react-leaflet").then((mod) => mod.TileLayer),
+  { ssr: false }
+);
+const Marker = dynamic(
+  () => import("react-leaflet").then((mod) => mod.Marker),
+  { ssr: false }
+);
+const Popup = dynamic(() => import("react-leaflet").then((mod) => mod.Popup), {
+  ssr: false,
+});
+
 const stats = [
   { value: 447, label: "Remaining" },
   { value: 76, label: "In progress" },
 ];
 
-// Custom icon for user location
-const userIcon = new L.Icon({
-  iconUrl:
-    "https://raw.githubusercontent.com/jvlavan/leaflet-color-markers/master/img/marker-icon-red.png",
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
-  shadowUrl:
-    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png",
-  shadowSize: [41, 41],
-  shadowAnchor: [12, 41],
-});
+// Custom icons
+const createIcon = (iconUrl) => {
+  return new L.Icon({
+    iconUrl,
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowUrl:
+      "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png",
+    shadowSize: [41, 41],
+    shadowAnchor: [12, 41],
+  });
+};
 
-// Custom icon for turf locations (red pin)
-const turfIcon = new L.Icon({
-  iconUrl:
-    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png",
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
-  shadowUrl:
-    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png",
-  shadowSize: [41, 41],
-  shadowAnchor: [12, 41],
-});
+const userIcon = createIcon(
+  "https://raw.githubusercontent.com/jvlavan/leaflet-color-markers/master/img/marker-icon-red.png"
+);
+const turfIcon = createIcon(
+  "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png"
+);
 
 export default function PricingPage() {
   const [reload, setReload] = useState(true);
@@ -66,9 +78,10 @@ export default function PricingPage() {
       </Text>
     </div>
   ));
+
   const fetchMapData = async () => {
     try {
-      let response = await axios.post(
+      const response = await axios.post(
         "/api/fetch-omap",
         {
           latitude: coords.latitude,
@@ -213,7 +226,6 @@ export default function PricingPage() {
                     </span>
                     <br />
                     <div className="mt-4">
-                      {" "}
                       <a
                         className="mt-3 text-white bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                         href={`https://www.google.com/maps/search/?api=1&query=${data.geometry.location.lat},${data.geometry.location.lng}`}
