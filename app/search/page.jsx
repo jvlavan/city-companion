@@ -2,7 +2,7 @@
 import React from "react";
 import { useState } from "react";
 function Page() {
-  const [userinput, Setinput] = useState("park");
+  const [userinput, Setinput] = useState("Railway Station");
   // console.log(userinput);
   return (
     <div className="relative overflow-hidden">
