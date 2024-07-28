@@ -26,9 +26,16 @@ export default function Home() {
               corner with City Companion.
             </p>
           </div>
+          <br />
+          <br />
+          <a
+            className="mt-5  text-white bg-blue-500 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-3 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            href="/search"
+          >
+            Start Surfing
+          </a>
         </div>
       </div>
-
 
       <div className="max-w-[85rem] px-4 py-2 sm:px-6 lg:px-8 lg:py-4 mx-auto">
         <div className="lg:grid lg:grid-cols-12 lg:gap-16 lg:items-center">
