@@ -17,7 +17,7 @@ function Page() {
           </p>
 
           <div className="mt-7 sm:mt-12 mx-auto max-w-xl relative">
-            <form>
+            <>
               <div className="relative z-10 flex gap-x-3 p-3 bg-white border rounded-lg shadow-lg shadow-gray-100 dark:bg-neutral-900 dark:border-neutral-700 dark:shadow-gray-900/20">
                 <div className="w-full">
                   <label
@@ -27,12 +27,12 @@ function Page() {
                     <span className="sr-only">Search Places</span>
                   </label>
                   <input
-                    type="email"
+                    type="text"
                     name="hs-search-article-1"
                     id="hs-search-article-1"
                     value={userinput}
                     className="py-2.5 px-4 block w-full border-transparent rounded-lg focus:border-blue-500 focus:ring-blue-500 dark:bg-neutral-900 dark:border-transparent dark:text-neutral-400 dark:placeholder-neutral-500 dark:focus:ring-neutral-600"
-                    placeholder="Search article"
+                    placeholder="Search places"
                     onChange={(e) => Setinput(e.target.value)}
                   />
                 </div>
@@ -59,7 +59,7 @@ function Page() {
                   </a>
                 </div>
               </div>
-            </form>
+            </>
 
             <div className="hidden md:block absolute top-0 end-0 -translate-y-12 translate-x-20">
               <svg
