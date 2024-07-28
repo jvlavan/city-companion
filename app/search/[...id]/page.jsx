@@ -1,10 +1,7 @@
 "use client";
-import dynamic from "next/dynamic";
 import { useGeolocated } from "react-geolocated";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import "leaflet/dist/leaflet.css";
-import "@mantine/core/styles.css";
 import {
   Text,
   Card,
@@ -13,51 +10,17 @@ import {
   useMantineTheme,
 } from "@mantine/core";
 import classes from "./StatsRingCard.module.css";
-import L from "leaflet";
-// Dynamically import Leaflet components with no SSR
-const MapContainer = dynamic(
-  () => import("react-leaflet").then((mod) => mod.MapContainer),
-  { ssr: false }
-);
-const TileLayer = dynamic(
-  () => import("react-leaflet").then((mod) => mod.TileLayer),
-  { ssr: false }
-);
-const Marker = dynamic(
-  () => import("react-leaflet").then((mod) => mod.Marker),
-  { ssr: false }
-);
-const Popup = dynamic(() => import("react-leaflet").then((mod) => mod.Popup), {
-  ssr: false,
-});
+import dynamic from "next/dynamic";
+import "@mantine/core/styles.css";
+// Dynamically import the MapComponent
+const MapComponent = dynamic(() => import("./MapComponent"), { ssr: false });
 
 const stats = [
   { value: 447, label: "Remaining" },
   { value: 76, label: "In progress" },
 ];
 
-// Custom icons
-const createIcon = (iconUrl) => {
-  return new L.Icon({
-    iconUrl,
-    iconSize: [25, 41],
-    iconAnchor: [12, 41],
-    popupAnchor: [1, -34],
-    shadowUrl:
-      "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png",
-    shadowSize: [41, 41],
-    shadowAnchor: [12, 41],
-  });
-};
-
-const userIcon = createIcon(
-  "https://raw.githubusercontent.com/jvlavan/leaflet-color-markers/master/img/marker-icon-red.png"
-);
-const turfIcon = createIcon(
-  "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png"
-);
-
-export default function PricingPage() {
+export default function PricingPage({ params }) {
   const [reload, setReload] = useState(true);
   const [apiData, setApiData] = useState(null);
   const { coords, isGeolocationAvailable, isGeolocationEnabled } =
@@ -68,16 +31,6 @@ export default function PricingPage() {
       userDecisionTimeout: 5000,
     });
   const theme = useMantineTheme();
-  const completed = 1887;
-  const total = 2334;
-  const items = stats.map((stat) => (
-    <div key={stat.label}>
-      <Text className={classes.label}>{stat.value}</Text>
-      <Text size="xs" c="dimmed">
-        {stat.label}
-      </Text>
-    </div>
-  ));
 
   const fetchMapData = async () => {
     try {
@@ -86,7 +39,7 @@ export default function PricingPage() {
         {
           latitude: coords.latitude,
           longitude: coords.longitude,
-          query: "hotel",
+          query: params.id[0],
         },
         {
           headers: {
@@ -118,34 +71,7 @@ export default function PricingPage() {
     <div>Geolocation is not enabled</div>
   ) : coords ? (
     <>
-      <MapContainer
-        center={[coords.latitude, coords.longitude]}
-        zoom={13}
-        style={{ height: "500px", width: "100%" }}
-      >
-        <TileLayer
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        />
-        <Marker position={[coords.latitude, coords.longitude]} icon={userIcon}>
-          <Popup>You are here</Popup>
-        </Marker>
-        {apiData?.res?.predictions?.map((data, index) => (
-          <Marker
-            key={index}
-            position={[data.geometry.location.lat, data.geometry.location.lng]}
-            icon={turfIcon}
-          >
-            <Popup>
-              <div>
-                <h5>{data.terms[0].value}</h5>
-                <p>{data.description}</p>
-              </div>
-            </Popup>
-          </Marker>
-        ))}
-      </MapContainer>
-
+      <MapComponent coords={coords} apiData={apiData} />
       {apiData?.res?.predictions?.length > 0 ? (
         <div className="m-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -159,22 +85,21 @@ export default function PricingPage() {
                   <Card withBorder p="xl" radius="md" className={classes.card}>
                     <div className={classes.inner}>
                       <div>
-                        <Text fz="lg" className={classes.label}>
+                        <Text fz="sm" className={classes.label}>
                           {data.terms[0].value}
                         </Text>
-                        <Text className={classes.lead} mt={30}>
+                        <Text fz="sm" className={classes.label} mt={20}>
                           {data.distance_meters / 1000}
                         </Text>
                         <Text className="mt-3" fz="xs" c="dimmed">
                           Kilo Metres Away
                         </Text>
                       </div>
-
                       <div className={classes.ring}>
                         <RingProgress
                           roundCaps
                           thickness={6}
-                          size={150}
+                          size={125}
                           sections={[
                             {
                               value: (data.distance_meters / 10000) * 100,
