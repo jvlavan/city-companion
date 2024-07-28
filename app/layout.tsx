@@ -76,7 +76,7 @@ export default function RootLayout({
                             </a>
                           </li>
                           <li>
-                            <a href="#" className="hover:underline">
+                            <a href="/" className="hover:underline">
                               login
                             </a>
                           </li>
@@ -135,7 +135,7 @@ export default function RootLayout({
                     </span>
                     <div className="flex mt-4 sm:justify-center sm:mt-0">
                       <a
-                        href="#"
+                        href="/"
                         className="text-gray-500 hover:text-gray-900 dark:hover:text-white"
                       >
                         <svg
@@ -154,7 +154,7 @@ export default function RootLayout({
                         <span className="sr-only">Facebook page</span>
                       </a>
                       <a
-                        href="#"
+                        href="/"
                         className="text-gray-500 hover:text-gray-900 dark:hover:text-white ms-5"
                       >
                         <svg
@@ -169,7 +169,7 @@ export default function RootLayout({
                         <span className="sr-only">Discord community</span>
                       </a>
                       <a
-                        href="#"
+                        href="/"
                         className="text-gray-500 hover:text-gray-900 dark:hover:text-white ms-5"
                       >
                         <svg
@@ -188,7 +188,7 @@ export default function RootLayout({
                         <span className="sr-only">Twitter page</span>
                       </a>
                       <a
-                        href="#"
+                        href="/"
                         className="text-gray-500 hover:text-gray-900 dark:hover:text-white ms-5"
                       >
                         <svg
@@ -207,7 +207,7 @@ export default function RootLayout({
                         <span className="sr-only">GitHub account</span>
                       </a>
                       <a
-                        href="#"
+                        href="/"
                         className="text-gray-500 hover:text-gray-900 dark:hover:text-white ms-5"
                       >
                         <svg
