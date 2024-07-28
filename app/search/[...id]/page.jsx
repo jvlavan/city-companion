@@ -166,7 +166,7 @@ export default function PricingPage({ params }) {
         </div>
       ) : (
         <div className="text font-semibold tracking-tight text-gray-900 dark:text-white">
-          No data available
+          No data available till now
         </div>
       )}
     </>
