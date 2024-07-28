@@ -1,6 +1,7 @@
 import dynamic from "next/dynamic";
 import { useEffect } from "react";
 import "leaflet/dist/leaflet.css";
+import { Spinner } from "@nextui-org/react";
 
 // Dynamically import Leaflet components with SSR disabled
 const MapContainer = dynamic(
@@ -55,7 +56,7 @@ const MapComponent = ({ coords, apiData }) => {
   }, []);
 
   if (!coords || !apiData) {
-    return <div>Loading map...</div>;
+    return <Spinner label="Loading Map..." color="primary" />;
   }
 
   return (

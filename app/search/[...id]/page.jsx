@@ -13,12 +13,9 @@ import classes from "./StatsRingCard.module.css";
 import dynamic from "next/dynamic";
 import "@mantine/core/styles.css";
 // Dynamically import the MapComponent
-const MapComponent = dynamic(() => import("./MapComponent"), { ssr: false });
+import { Spinner } from "@nextui-org/react";
 
-const stats = [
-  { value: 447, label: "Remaining" },
-  { value: 76, label: "In progress" },
-];
+const MapComponent = dynamic(() => import("./MapComponent"), { ssr: false });
 
 export default function PricingPage({ params }) {
   const [reload, setReload] = useState(true);
@@ -63,12 +60,16 @@ export default function PricingPage({ params }) {
     setReload(false);
   }, []);
 
-  if (reload) return <>loading UI.....</>;
+  if (reload) return <Spinner label="Loading..." color="warning" />;
 
   return !isGeolocationAvailable ? (
-    <div>Your browser does not support Geolocation</div>
+    <div className="text font-semibold tracking-tight text-gray-900 dark:text-white">
+      Your browser does not support Geolocation
+    </div>
   ) : !isGeolocationEnabled ? (
-    <div>Geolocation is not enabled</div>
+    <div className="text font-semibold tracking-tight text-gray-900 dark:text-white">
+      Geolocation is not enabled
+    </div>
   ) : coords ? (
     <>
       <MapComponent coords={coords} apiData={apiData} />
@@ -164,10 +165,14 @@ export default function PricingPage({ params }) {
           </div>
         </div>
       ) : (
-        <div>No data available</div>
+        <div className="text font-semibold tracking-tight text-gray-900 dark:text-white">
+          No data available
+        </div>
       )}
     </>
   ) : (
-    <div>Getting the location data&hellip;</div>
+    <div>
+      <Spinner label="Getting the location data..." color="warning" />
+    </div>
   );
 }
