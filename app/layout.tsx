@@ -2,12 +2,20 @@ import "@/styles/globals.css";
 import { Metadata, Viewport } from "next";
 import { Link } from "@nextui-org/link";
 import clsx from "clsx";
-
+import Script from "next/script";
 import { Providers } from "./providers";
 import { createTheme, MantineProvider } from "@mantine/core";
 import { siteConfig } from "@/config/site";
 import { fontSans } from "@/config/fonts";
 import { Navbar } from "@/components/navbar";
+const clairtyCode = `(function(c,l,a,r,i,t,y){
+
+c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)
+  
+};
+t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+})(window, document, "clarity", "script", "neec5hjckq");`;
 
 export const metadata: Metadata = {
   title: {
@@ -229,6 +237,9 @@ export default function RootLayout({
             </div>
           </MantineProvider>
         </Providers>
+        <Script id="ms-clarity" strategy="afterInteractive">
+          {clairtyCode}
+        </Script>
       </body>
     </html>
   );
