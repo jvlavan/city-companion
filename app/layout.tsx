@@ -88,11 +88,8 @@ export default function RootLayout({
                         </h2>
                         <ul className="text-gray-500 dark:text-gray-400 font-medium">
                           <li className="mb-4">
-                            <a
-                              href="/search/temple"
-                              className="hover:underline "
-                            >
-                              Temples
+                            <a href="/search/park" className="hover:underline ">
+                              Parks
                             </a>
                           </li>
                           <li>

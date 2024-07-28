@@ -8,10 +8,7 @@ export const siteConfig = {
       label: "Hospital",
       href: "/search/hospital",
     },
-    {
-      label: "Temple",
-      href: "/search/temple",
-    },
+
     {
       label: "Turf",
       href: "/search/turf",
@@ -31,10 +28,7 @@ export const siteConfig = {
       label: "Hospital",
       href: "/search/hospital",
     },
-    {
-      label: "Temple",
-      href: "/search/temple",
-    },
+
     {
       label: "Turf",
       href: "/search/turf",
