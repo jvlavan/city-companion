@@ -139,7 +139,7 @@ export default function Home() {
                 <img
                   className="rounded-xl"
                   src="https://images.unsplash.com/photo-1455587734955-081b22074882?q=80&w=1920&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                  alt="Features Image"
+                  alt="Features Image 1"
                 />
               </div>
 
@@ -147,7 +147,7 @@ export default function Home() {
                 <img
                   className="rounded-xl"
                   src="https://images.unsplash.com/photo-1542955001-ff91d5369658?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                  alt="Features Image"
+                  alt="Features Image 2"
                 />
               </div>
 
@@ -155,7 +155,7 @@ export default function Home() {
                 <img
                   className="rounded-xl"
                   src="https://images.unsplash.com/photo-1532307227439-64b2c0117889?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                  alt="Features Image"
+                  alt="Features Image 3"
                 />
               </div>
             </div>
